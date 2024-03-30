@@ -1,5 +1,5 @@
 
-
+import logo from '../../../assets/logo.png';
 const Navbar = () => {
     return (
     <div className="navbar bg-black text-white fixed z-10 bg-opacity-30 max-w-screen-xl">
@@ -8,7 +8,7 @@ const Navbar = () => {
        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
       </div>
-      <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+      <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-black bg-opacity-50 rounded-box w-52">
         <li><a>Item 1</a></li>
         <li>
           <a>Parent</a>
@@ -20,7 +20,12 @@ const Navbar = () => {
         <li><a>Item 3</a></li>
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl">Bangla Bhai Restaurent</a>
+    <a className="btn btn-ghost text-xl ">
+       <div className="h-full flex items-center gap-1">
+       <img className="h-[100%]" src={logo} alt="" />
+        Bangla Bhai<br/>Restaurent   
+        </div> 
+    </a>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
@@ -28,7 +33,7 @@ const Navbar = () => {
       <li>
         <details>
           <summary>Parent</summary>
-          <ul className="p-2">
+          <ul className="p-2 bg-black bg-opacity-50 w-36">
             <li><a>Submenu 1</a></li>
             <li><a>Submenu 2</a></li>
           </ul>
@@ -38,7 +43,7 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+    <a className="btn">Login</a>
   </div>
 </div>
     );
