@@ -1,6 +1,6 @@
 import './Menucard.css';
 const Menucard = ({menu}) => {
-    console.log(menu)
+    // console.log(menu)
     const {name,recipe,image,price} = menu;
     return (
         <div className="menucard flex justify-between">
@@ -9,7 +9,7 @@ const Menucard = ({menu}) => {
                 <h3 className="text-lg font-semibold text-orange-500">{name} --------------</h3>
                 <p>{recipe}</p>
             </div>
-            <h4 className="text-lg font-semibold text-orange-500">{price}</h4>
+            <h4 className="text-lg font-semibold text-orange-500">${price}</h4>
         </div>
     );
 };
