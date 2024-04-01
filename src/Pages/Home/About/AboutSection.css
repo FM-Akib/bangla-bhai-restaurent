@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.AboutBack{
+    background-image: url('../../../assets/home/chef-service.jpg');
+    height: 572px;
+    object-fit: cover;
+    object-position: center;
+}

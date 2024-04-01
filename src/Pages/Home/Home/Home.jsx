@@ -1,7 +1,8 @@
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
+import AboutSection from "../About/AboutSection";
 import Banner from "../Banner/Banner";
 import Category from "../Category/Category";
-import FeaturedSection from "../Featured/FeaturedSection";
+
 
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
            subHeading='From 11:00am to 10:00pm'
            ></SectionTitle>
            <Category></Category>
+           <AboutSection></AboutSection>
         </div>
     );
 };
