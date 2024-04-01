@@ -10,7 +10,7 @@ const Featured = () => {
             heading='FROM OUR MENU'
             ></SectionTitle>
 
-            <div className="px-72 pb-28 pt-7  grid grid-cols-2 gap-7 bg-slate-800 bg-opacity-30 ">
+            <div className="md:px-72 px-4 pb-28 pt-7  grid md:grid-cols-2 gap-7 bg-slate-800 bg-opacity-30 ">
               <img className="w-[648px]" src={featuredImg} alt="" />
               <div className="gap-2 ">
                 <p>March 20, 2023</p> 

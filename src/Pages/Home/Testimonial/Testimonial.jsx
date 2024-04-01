@@ -50,7 +50,7 @@ const Testimonial = () => {
             </svg>
             </div>
 
-                <p className="px-40 py-2">{review.details}</p>
+                <p className="md:px-40 px-20 py-2">{review.details}</p>
                 <h1 className="text-center font-semibold text-2xl text-orange-600">{review.name}</h1>
             </SwiperSlide> )
         }
