@@ -17,7 +17,7 @@ const Testimonial = () => {
     },[])
 
     return (
-        <section className="py-10">
+        <section className="py-20 ">
         <SectionTitle
         heading="TESTIMONIALS"
         subHeading="What Our Clients Say"
