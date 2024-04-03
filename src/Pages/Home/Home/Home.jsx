@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import AboutSection from "../About/AboutSection";
 import Banner from "../Banner/Banner";
 import Callus from "../CallUs/Callus";
@@ -12,6 +13,11 @@ import Testimonial from "../Testimonial/Testimonial";
 const Home = () => {
     return (
         <div>
+            
+        <Helmet>
+        <title>Bangla Bhai | Home</title>
+        </Helmet>
+
            <Banner></Banner>
            <Category></Category>
            <AboutSection></AboutSection>
