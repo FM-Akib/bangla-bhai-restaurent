@@ -7,9 +7,17 @@ import 'react-tabs/style/react-tabs.css';
 import { useState } from "react";
 import useMenu from "../../../Hooks/useMenu";
 import OrderTab from "../OrderTab/OrderTab";
+import { useParams } from "react-router-dom";
 
 const Order = () => {
+    const categories = ['salad','pizza','soup','dessert','drinks']
     const [menu] = useMenu();
+    const {category} = useParams();
+    console.log(category);
+
+    const initialIndex = categories.indexOf(category)
+
+
     const dessert = menu.filter(item=> item.category==='dessert')
     const pizza = menu.filter(item=> item.category==='pizza')
     const salad = menu.filter(item=> item.category==='salad')
@@ -17,7 +25,8 @@ const Order = () => {
     const drinks = menu.filter(item=> item.category==='drinks')
 
 
-    const [tabIndex,setTabindex] = useState(0);
+    const [tabIndex,setTabindex] = useState(initialIndex);
+
     return (
         <div>
              <Helmet>

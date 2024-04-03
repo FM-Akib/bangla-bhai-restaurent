@@ -27,17 +27,13 @@ const Menu = () => {
             <SectionTitle heading="TODAY'S OFFER" subHeading="Don't miss"></SectionTitle>
             <MenuCategory items={offered}></MenuCategory>
 
-            <Cover img={dessertsCover} title='DESSERTS' subtitle='Life is short, eat dessert first.'></Cover>
-            <MenuCategory items={dessert}></MenuCategory>
+            <MenuCategory items={dessert} img={dessertsCover} title='dessert' subtitle='Life is short, eat dessert first.'></MenuCategory>
 
-            <Cover img={pizzaCover} title='Pizza' subtitle='When life gives you lemons, sell them and buy pizza.'></Cover>
-            <MenuCategory items={pizza}></MenuCategory>
+            <MenuCategory items={pizza} img={pizzaCover} title='pizza' subtitle='When life gives you lemons, sell them and buy pizza.'></MenuCategory>
 
-            <Cover img={saladCover} title='salad' subtitle='Salad is the ultimate flexitarian meal.'></Cover>
-            <MenuCategory items={salad}></MenuCategory>
+            <MenuCategory items={salad} img={saladCover} title='salad' subtitle='Salad is the ultimate flexitarian meal.'></MenuCategory>
 
-            <Cover img={soupCover} title='soup' subtitle='Good soup is one of the prime ingredients of good living.'></Cover>
-            <MenuCategory items={soup}></MenuCategory>
+            <MenuCategory items={soup} img={soupCover} title='soup' subtitle='Good soup is one of the prime ingredients of good living.'></MenuCategory>
         
         
         
