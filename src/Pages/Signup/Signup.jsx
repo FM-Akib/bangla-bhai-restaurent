@@ -2,16 +2,44 @@ import '../Login/Login.css';
 import signupImg from'../../assets/others/authentication2.png';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form"
-
+import { Helmet } from 'react-helmet-async';
+import { useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider.jsx';
+import Swal from 'sweetalert2'
 
 
 
 const Signup = () => {
   const { register,handleSubmit, watch,formState: { errors }} = useForm();
+
+
+  const {CreateUserEmailPassword} = useContext(AuthContext); 
+
+
   const onSubmit = (data) => {
-    console.log(data)
+    // console.log(data)
+    CreateUserEmailPassword(data.email,data.password)
+    .then((result) => {
+        const Loggeduser = result.user;
+            console.log(Loggeduser)
+            Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Sign up successful.",
+                showConfirmButton: false,
+                timer: 1500
+              });
+        
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
 }
     return (
+        <>
+        <Helmet>
+        <title>Bangla Bhai | Signup</title>
+        </Helmet>
         <div className="loginPage  min-h-screen min-w-screen">
            <div className="grid md:grid-cols-2">
 
@@ -41,8 +69,9 @@ const Signup = () => {
                         Name
                     </label>
                     <div className="mt-1">
-                        <input name="name" {...register("name")} type="text" required
+                        <input name="name" {...register("name",{ required: true })} type="text" 
                             className="  rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Enter your name"/>
+                             {errors.name && <span className="text-red-600 mt-1">* Name field is required</span>}
                     </div>
                 </div>
 
@@ -51,8 +80,9 @@ const Signup = () => {
                         Email address
                     </label>
                     <div className="mt-1">
-                        <input  name="email" {...register("email")} type="email" required
+                        <input  name="email" {...register("email",{ required: true })} type="email" required
                             className=" rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Enter your email address"/>
+                            {errors.email && <span className="text-red-600 mt-1">* Email field is required</span>}
                     </div>
                 </div>
 
@@ -61,9 +91,16 @@ const Signup = () => {
                         Password
                     </label>
                     <div className="mt-1">
-                        <input id="password" {...register("password")} name="password" type="password"  required
+                        <input id="password" {...register("password",{ 
+                            required: true, 
+                            minLength: 6,
+                            pattern: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/
+                        })} name="password" type="password"  required
                             className=" rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Enter your password"/>
+                            {errors.password?.type=== 'required' && <span className="text-red-600 mt-1">* Password field is required</span>}
+                            {errors.password?.type=== 'minLength' && <span className="text-red-600 mt-1">Password should at least 6 characters</span>}
+                            {errors.password?.type=== 'pattern' && <span className="text-red-600 mt-1">Password should at one digit & has at least one special character.</span>}
                     </div>
                 </div>
 
@@ -86,7 +123,7 @@ const Signup = () => {
                 </div>
 
                 <div className="form-control">
-                    <input type="submit"  className="btn group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" value="login"></input>
+                    <input type="submit"  className="btn group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" value="sign up"></input>
                 </div>
             </form>
 
@@ -135,6 +172,7 @@ const Signup = () => {
             </div>
            </div>
         </div>
+        </>
     );
 };
 

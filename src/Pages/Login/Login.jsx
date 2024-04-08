@@ -3,6 +3,7 @@ import loginImg from'../../assets/others/authentication2.png';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 
 const Login = () => {
@@ -24,6 +25,10 @@ const Login = () => {
 
 
     return (
+    <>
+        <Helmet>
+        <title>Bangla Bhai | Signin</title>
+        </Helmet>
         <div className="loginPage  min-h-screen min-w-screen">
            <div className="grid md:grid-cols-2">
 
@@ -144,6 +149,7 @@ const Login = () => {
             </div>
            </div>
         </div>
+        </>
     );
 };
 
