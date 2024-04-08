@@ -1,7 +1,16 @@
 import '../Login/Login.css';
 import signupImg from'../../assets/others/authentication2.png';
 import { Link } from 'react-router-dom';
+import { useForm } from "react-hook-form"
+
+
+
+
 const Signup = () => {
+  const { register,handleSubmit, watch,formState: { errors }} = useForm();
+  const onSubmit = (data) => {
+    console.log(data)
+}
     return (
         <div className="loginPage  min-h-screen min-w-screen">
            <div className="grid md:grid-cols-2">
@@ -23,14 +32,16 @@ const Signup = () => {
 
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className=" py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
+
+
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
 
                 <div>
                     <label  className="block text-sm font-medium text-gray-700">
                         Name
                     </label>
                     <div className="mt-1">
-                        <input name="name" type="text" required
+                        <input name="name" {...register("name")} type="text" required
                             className="  rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Enter your name"/>
                     </div>
                 </div>
@@ -40,7 +51,7 @@ const Signup = () => {
                         Email address
                     </label>
                     <div className="mt-1">
-                        <input  name="email" type="email" required
+                        <input  name="email" {...register("email")} type="email" required
                             className=" rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Enter your email address"/>
                     </div>
                 </div>
@@ -50,7 +61,7 @@ const Signup = () => {
                         Password
                     </label>
                     <div className="mt-1">
-                        <input id="password" name="password" type="password"  required
+                        <input id="password" {...register("password")} name="password" type="password"  required
                             className=" rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Enter your password"/>
                     </div>
