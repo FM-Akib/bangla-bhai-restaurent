@@ -2,7 +2,7 @@ import './Login.css';
 import loginImg from'../../assets/others/authentication2.png';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate,useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2'
@@ -10,7 +10,13 @@ import { useForm } from "react-hook-form"
 
 
 
+
 const Login = () => {
+
+   const navigate = useNavigate();
+   const location = useLocation();
+   const from = location.state?.from?.pathname || '/';
+
     const { register,handleSubmit,formState: { errors }} = useForm();
 
     const {SigninWithEmailPassword,SigninWithGoogle} = useContext(AuthContext) 
@@ -44,7 +50,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                   });
-            
+                  navigate(from,{replace: true})
           })
           .catch((error) => {
             console.log(error.message);
@@ -64,7 +70,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                   });
-            
+             navigate(from,{replace: true})
           })
           .catch((error) => {
             console.log(error.message);

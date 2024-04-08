@@ -1,6 +1,6 @@
 import '../Login/Login.css';
 import signupImg from'../../assets/others/authentication2.png';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate} from 'react-router-dom';
 import { useForm } from "react-hook-form"
 import { Helmet } from 'react-helmet-async';
 import { useContext } from 'react';
@@ -15,7 +15,8 @@ const Signup = () => {
 
   const {CreateUserEmailPassword,SigninWithGoogle} = useContext(AuthContext); 
 
-
+  const navigate = useNavigate();
+  
 
 
   const handleGoogleSignUp= ()=>{
@@ -30,7 +31,7 @@ const Signup = () => {
                 showConfirmButton: false,
                 timer: 1500
               });
-        
+              navigate('/',{replace: true})
       })
       .catch((error) => {
         console.log(error.message);
@@ -49,7 +50,7 @@ const onSubmit = (data) => {
                 showConfirmButton: false,
                 timer: 1500
               });
-        
+              navigate('/',{replace: true})
       })
       .catch((error) => {
         console.log(error.message);
