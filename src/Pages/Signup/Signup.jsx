@@ -10,14 +10,34 @@ import Swal from 'sweetalert2'
 
 
 const Signup = () => {
-  const { register,handleSubmit, watch,formState: { errors }} = useForm();
+  const { register,handleSubmit,formState: { errors }} = useForm();
 
 
-  const {CreateUserEmailPassword} = useContext(AuthContext); 
+  const {CreateUserEmailPassword,SigninWithGoogle} = useContext(AuthContext); 
 
 
-  const onSubmit = (data) => {
-    // console.log(data)
+
+
+  const handleGoogleSignUp= ()=>{
+    SigninWithGoogle()
+    .then((result) => {
+        const Loggeduser = result.user;
+            console.log(Loggeduser)
+            Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Sign up successful.",
+                showConfirmButton: false,
+                timer: 1500
+              });
+        
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+
+const onSubmit = (data) => {
     CreateUserEmailPassword(data.email,data.password)
     .then((result) => {
         const Loggeduser = result.user;
@@ -143,21 +163,14 @@ const Signup = () => {
                     </div>
                 </div>
 
-                <div className="mt-6 grid grid-cols-2 gap-3">
+                <div className="mt-6 grid grid-cols-1 gap-3">
+                   
                     <div>
-                        <a href="#"
-                            className="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                            <img className="h-6 w-6" src="https://www.svgrepo.com/show/512120/facebook-176.svg"
-                                alt=""/>
-                        </a>
-                    </div>
-                    
-                    <div>
-                        <a href="#"
+                        <button onClick={handleGoogleSignUp}
                             className="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
                             <img className="h-6 w-6" src="https://www.svgrepo.com/show/506498/google.svg"
                                 alt=""/>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

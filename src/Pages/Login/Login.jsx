@@ -124,21 +124,15 @@ const Login = () => {
                     </div>
                 </div>
 
-                <div className="mt-6 grid grid-cols-2 gap-3">
-                    <div>
-                        <a href="#"
-                            className="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                            <img className="h-6 w-6" src="https://www.svgrepo.com/show/512120/facebook-176.svg"
-                                alt=""/>
-                        </a>
-                    </div>
+                <div className="mt-6 grid grid-cols-1 gap-3">
+                   
                     
                     <div>
-                        <a href="#"
+                        <button 
                             className="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
                             <img className="h-6 w-6" src="https://www.svgrepo.com/show/506498/google.svg"
                                 alt=""/>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
