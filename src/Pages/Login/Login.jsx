@@ -1,12 +1,20 @@
 import './Login.css';
 import loginImg from'../../assets/others/authentication2.png';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { AuthContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2'
+import { useForm } from "react-hook-form"
+
 
 
 const Login = () => {
+    const { register,handleSubmit,formState: { errors }} = useForm();
+
+    const {SigninWithEmailPassword} = useContext(AuthContext) 
+
     const [disabled,setDisabled] = useState(true);
     useEffect(() => {
         loadCaptchaEnginge(6,"transparent"); 
@@ -23,6 +31,25 @@ const Login = () => {
         }
     }
 
+
+    const onSubmit = (data) => {
+        SigninWithEmailPassword(data.email, data.password)
+        .then((result) => {
+            const Loggeduser = result.user;
+                console.log(Loggeduser)
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Sign in successful.",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+    }
 
     return (
     <>
@@ -54,14 +81,17 @@ const Login = () => {
 
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className=" py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
+
+
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <label  className="block text-sm font-medium text-gray-700">
                         Email address
                     </label>
                     <div className="mt-1">
-                        <input id="email" name="email" type="email" required
+                        <input id="email" {...register("email",{ required: true })} type="email" required
                             className="  rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Enter your email address"/>
+                             {errors.email && <span className="text-red-600 mt-1">* Email field is required</span>}
                     </div>
                 </div>
 
@@ -70,9 +100,16 @@ const Login = () => {
                         Password
                     </label>
                     <div className="mt-1">
-                        <input id="password" name="password" type="password"  required
+                        <input id="password" {...register("password",{ 
+                            required: true, 
+                            minLength: 6,
+                            pattern: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/
+                        })} type="password"  required
                             className=" rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Enter your password"/>
+                            {errors.password?.type=== 'required' && <span className="text-red-600 mt-1">* Password field is required</span>}
+                            {errors.password?.type=== 'minLength' && <span className="text-red-600 mt-1">Password should at least 6 characters</span>}
+                            {errors.password?.type=== 'pattern' && <span className="text-red-600 mt-1">Password should at one digit & has at least one special character.</span>}
                     </div>
                 </div>
 

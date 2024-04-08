@@ -60,6 +60,8 @@ const onSubmit = (data) => {
         <Helmet>
         <title>Bangla Bhai | Signup</title>
         </Helmet>
+
+        
         <div className="loginPage  min-h-screen min-w-screen">
            <div className="grid md:grid-cols-2">
 
