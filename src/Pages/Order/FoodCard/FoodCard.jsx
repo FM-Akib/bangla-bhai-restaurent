@@ -1,7 +1,36 @@
+import { useContext } from "react";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const FoodCard = ({item}) => {
     const {name,recipe,image,price} = item;
+    const {user} = useContext(AuthContext)
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleAddtoCart=()=>{
+        if(user?.email){
+            console.log(user.email);
+        }
+        else {
+            Swal.fire({
+                title: "Please Login first.",
+                text: "You are not logged in!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Login!"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/login',{state:{from:location}})
+                }
+              });
+             
+        }  
+    }
 
     return (
         <div className="max-w-[380px] bg-yellow-200 flex flex-col items-center rounded-md shadow-lg relative">
@@ -12,7 +41,7 @@ const FoodCard = ({item}) => {
                 <h3 className="text-xl font-semibold">{name}</h3>
                 <p className="pt-1">{recipe}</p>
             </div>
-            <button className="btn btn-outline uppercase bg-slate-50 border-0 border-b-4 border-yellow-600">add to cart</button>
+            <button onClick={handleAddtoCart} className="btn btn-outline uppercase bg-slate-50 border-0 border-b-4 border-yellow-600">add to cart</button>
            </div>
         </div>
     );
