@@ -4,10 +4,15 @@ import logo from '../../../assets/logo.png';
 import { useContext } from 'react';
 import { AuthContext } from '../../../Provider/AuthProvider';
 import { MdShoppingCart } from "react-icons/md";
+import useCart from '../../../Hooks/useCart';
 
 
 
 const Navbar = () => {
+
+
+  const [cart] = useCart();
+  console.log(cart);
 
   const {user,logOut} = useContext(AuthContext)
   const handleLogout = () => {
@@ -30,7 +35,7 @@ const Navbar = () => {
         <li><Link to="/">
         <button className="flex items-center">
         <MdShoppingCart className="text-lg" />
-        <div className="badge badge-secondary ml-1">+0</div>
+        <div className="badge badge-secondary ml-1">+{cart.length}</div>
         </button></Link></li>
         <li><Link to="/secrect">Secrect</Link></li>
         
@@ -52,7 +57,7 @@ const Navbar = () => {
       <li><Link to="/">
         <button className="flex items-center">
         <MdShoppingCart className="text-lg" />
-        <div className="badge badge-secondary ml-1">+0</div>
+        <div className="badge badge-secondary ml-1">+{cart.length}</div>
         </button></Link></li>
       <li><Link to="/secrect">Secrect</Link></li>
       
