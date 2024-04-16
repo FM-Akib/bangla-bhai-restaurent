@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
 import { useContext } from 'react';
 import { AuthContext } from '../../../Provider/AuthProvider';
+import { MdShoppingCart } from "react-icons/md";
+
+
 
 const Navbar = () => {
 
@@ -24,6 +27,12 @@ const Navbar = () => {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/menu">Our Menu</Link></li>
         <li><Link to="/order/salad">Order</Link></li>
+        <li><Link to="/">
+        <button className="flex items-center">
+        <MdShoppingCart className="text-lg" />
+        <div className="badge badge-secondary ml-1">+0</div>
+        </button></Link></li>
+        <li><Link to="/secrect">Secrect</Link></li>
         
         
       </ul>
@@ -40,6 +49,11 @@ const Navbar = () => {
       <li><Link to="/">Home</Link></li>
       <li><Link to="/menu">Our Menu</Link></li>
       <li><Link to="/order/salad">Order</Link></li>
+      <li><Link to="/">
+        <button className="flex items-center">
+        <MdShoppingCart className="text-lg" />
+        <div className="badge badge-secondary ml-1">+0</div>
+        </button></Link></li>
       <li><Link to="/secrect">Secrect</Link></li>
       
     </ul>
