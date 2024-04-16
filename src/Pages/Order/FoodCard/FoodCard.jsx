@@ -2,17 +2,28 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 const FoodCard = ({item}) => {
-    const {name,recipe,image,price} = item;
+    const {name,recipe,image,price,_id} = item;
     const {user} = useContext(AuthContext)
     const navigate = useNavigate();
     const location = useLocation();
+    // const axiosSecure = useAaxiosSecure()
 
     const handleAddtoCart=()=>{
         if(user?.email){
             console.log(user.email);
+            const cartItem = {
+                menuId : _id,
+                email : user.email,
+                name,
+                image,
+                price
+            }
+            axios.post('http://localhost:5000/carts',cartItem)
+            .then(res=>console.log(res.data))
         }
         else {
             Swal.fire({
