@@ -32,7 +32,7 @@ const Navbar = () => {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/menu">Our Menu</Link></li>
         <li><Link to="/order/salad">Order</Link></li>
-        <li><Link to="/">
+        <li><Link to="/dashboard/mycart">
         <button className="flex items-center">
         <MdShoppingCart className="text-lg" />
         <div className="badge badge-secondary ml-1">+{cart.length}</div>
@@ -54,7 +54,7 @@ const Navbar = () => {
       <li><Link to="/">Home</Link></li>
       <li><Link to="/menu">Our Menu</Link></li>
       <li><Link to="/order/salad">Order</Link></li>
-      <li><Link to="/">
+      <li><Link to="/dashboard/mycart">
         <button className="flex items-center">
         <MdShoppingCart className="text-lg" />
         <div className="badge badge-secondary ml-1">+{cart.length}</div>
