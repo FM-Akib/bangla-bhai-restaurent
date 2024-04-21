@@ -1,13 +1,20 @@
 import DashNav from "../Pages/Dashboard/DashNav";
 import '../App.css';
+import logo from '../assets/logo.png';
+import { Outlet } from "react-router-dom";
 const Dashboard = () => {
     return (
         <div className="grid grid-cols-12 Dash">
-            <div className="col-span-2 bg-amber-300 min-h-screen">
+            <div className="col-span-3 bg-amber-300 min-h-screen p-6 w-full">
+             <div className="flex flex-col justify-center items-center">
+             <img className="h-16" src={logo} alt="" />
+             <h2 className="text-lime-600 font-bold text-lg text-center">Bangla Bhai Restaurent</h2>
+             </div>
              <DashNav></DashNav>
             </div>
-            <div className="col-span-10 fontInter">
-Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum, laborum perspiciatis facilis inventore nemo ad. Magni aliquid, excepturi vel saepe repudiandae sed ipsum fugiat ad voluptatem deleniti, ab qui et soluta. Repudiandae, cum reiciendis suscipit aut repellat dignissimos laborum doloribus quas nobis consequuntur accusantium ipsum delectus nulla fugiat mollitia at vitae eligendi, expedita non est. Adipisci cumque quibusdam suscipit repudiandae enim id dolore mollitia dignissimos vitae officia unde repellat dolor ratione qui saepe ullam numquam laudantium eius, dolorem tempore! Impedit dolores ratione eligendi deleniti aut vitae veniam cum pariatur ipsa a praesentium voluptates, rem porro, illo incidunt ab accusantium. Quos.
+
+            <div className="col-span-9 fontInter p-12">
+               <Outlet></Outlet>
             </div>
         </div>
     );
