@@ -7,15 +7,20 @@ import { IoCalendarSharp } from "react-icons/io5";
 import { MdReviews } from "react-icons/md";
 import { RiHome3Fill } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
+import useCart from "../../Hooks/useCart";
 
 const DashNav = () => {
+
+    const [cart] = useCart();
+
+
     return (
         <div>
             <ul className="menu p-5 items-start gap-3 w-full">
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/userhome"><RiHome3Fill />User Home</NavLink> </li>
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/reservation"><BsCalendar2DateFill/>Reservation</NavLink> </li>
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/payment"><GiWallet />Payment History</NavLink> </li>
-                <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/mycart"><BsCartDashFill />My Cart</NavLink> </li>
+                <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/mycart"><BsCartDashFill />My Cart ({cart.length})</NavLink> </li>
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/review"><MdReviews />Add Review</NavLink> </li>
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/mybooking"><IoCalendarSharp />My Booking</NavLink> </li>
                

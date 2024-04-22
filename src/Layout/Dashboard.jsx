@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 const Dashboard = () => {
     return (
         <div className="grid grid-cols-12 Dash">
-            <div className="col-span-3 bg-amber-300 min-h-screen p-6 w-full">
+            <div className="col-span-3 bg-emerald-100 min-h-screen p-6 w-full">
              <div className="flex flex-col justify-center items-center">
              <img className="h-16" src={logo} alt="" />
              <h2 className="text-lime-600 font-bold text-lg text-center">Bangla Bhai Restaurent</h2>
