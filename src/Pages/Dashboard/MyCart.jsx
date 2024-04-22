@@ -1,11 +1,42 @@
 import { HiTrash } from "react-icons/hi";
 import useCart from "../../Hooks/useCart";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 
 const MyCart = () => {
-  const [cart] = useCart();
-  console.log(cart);
+  const [cart,refetch] = useCart();
+  //  console.log(cart);
+  const totalPrice = cart?.reduce((total,item)=>total+item.price,0);
+  const axiosSecure = useAxiosSecure();
+  const handleDeleteBtn = (id) =>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/carts/${id}`)
+        .then(result => {
+          // console.log(result);
+          if(result.data.deletedCount > 0) {
 
+          refetch();
+          Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+          }
+        })
+      }
+    });
+    
+  }
     return (
         <div>
           <div className="flex justify-center items-center">
@@ -17,8 +48,8 @@ const MyCart = () => {
               
               <div className="flex justify-between items-center mb-10">
                 <h1 className="text-xl font-semibold">Total Orders: {cart.length}</h1>
-                <h1 className="text-xl font-semibold">Total Price:</h1>
-                <button className="btn btn-primary">Pay</button>
+                <h1 className="text-xl font-semibold">Total Price: <span className="text-red-600">${totalPrice}</span></h1>
+                <button className="btn py-0 bg-emerald-600 text-white px-6">Pay</button>
               </div>
 
               <div className="overflow-x-auto">
@@ -26,6 +57,7 @@ const MyCart = () => {
     {/* head */}
     <thead>
       <tr>
+        <th>#</th>
         <th>Item Image</th>
         <th>Item Name</th>
         <th>Price</th>
@@ -36,8 +68,8 @@ const MyCart = () => {
     <tbody>
       {/* row 1 */}
       {
-        cart?.map(acart=> <tr key={acart._id}>
-      
+        cart?.map((acart,index)=> <tr key={acart._id}>
+         <td>{index+1}</td>
           <td>
             <div className="flex items-center gap-3">
               <div className="avatar">
@@ -52,7 +84,7 @@ const MyCart = () => {
           </td>
           <td>${acart.price}</td>
           <th>
-            <button className="btn btn-ghost "><HiTrash className="text-2xl text-red-500" /></button>
+            <button onClick={()=>handleDeleteBtn(acart._id)} className="btn btn-ghost "><HiTrash className="text-2xl text-red-500" /></button>
           </th>
         </tr>)
       }
