@@ -1,3 +1,4 @@
+import { HiTrash } from "react-icons/hi";
 import useCart from "../../Hooks/useCart";
 
 
@@ -35,7 +36,7 @@ const MyCart = () => {
     <tbody>
       {/* row 1 */}
       {
-        cart.map(acart=> <tr key={acart._id}>
+        cart?.map(acart=> <tr key={acart._id}>
       
           <td>
             <div className="flex items-center gap-3">
@@ -51,7 +52,7 @@ const MyCart = () => {
           </td>
           <td>${acart.price}</td>
           <th>
-            <button className="btn btn-ghost btn-xs">details</button>
+            <button className="btn btn-ghost "><HiTrash className="text-2xl text-red-500" /></button>
           </th>
         </tr>)
       }

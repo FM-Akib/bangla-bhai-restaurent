@@ -15,8 +15,8 @@ const DashNav = () => {
 
 
     return (
-        <div>
-            <ul className="menu p-5 items-start gap-3 w-full">
+        <div className="">
+            <ul className="menu p-5 items-start gap-3 w-full ">
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/userhome"><RiHome3Fill />User Home</NavLink> </li>
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/reservation"><BsCalendar2DateFill/>Reservation</NavLink> </li>
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/payment"><GiWallet />Payment History</NavLink> </li>
