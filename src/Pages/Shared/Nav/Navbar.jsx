@@ -35,7 +35,7 @@ const Navbar = () => {
         <li><Link to="/dashboard/mycart">
         <button className="flex items-center">
         <MdShoppingCart className="text-lg" />
-        <div className="badge badge-secondary ml-1">+{cart.length}</div>
+        <div className="badge badge-secondary ml-1">{user? <>+{cart.length}</>:'+0'}</div>
         </button></Link></li>
         <li><Link to="/secrect">Secrect</Link></li>
         
@@ -57,7 +57,7 @@ const Navbar = () => {
       <li><Link to="/dashboard/mycart">
         <button className="flex items-center">
         <MdShoppingCart className="text-lg" />
-        <div className="badge badge-secondary ml-1">+{cart.length}</div>
+        <div className="badge badge-secondary ml-1">{user? <>+{cart.length}</>:'+0'}</div>
         </button></Link></li>
       <li><Link to="/secrect">Secrect</Link></li>
       

@@ -6,17 +6,16 @@ import { Helmet } from 'react-helmet-async';
 import { useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider.jsx';
 import Swal from 'sweetalert2'
+import useAxiosPublic from '../../Hooks/useAxiosPublic.jsx';
 
 
 
 const Signup = () => {
   const { register,handleSubmit,formState: { errors }} = useForm();
-
-
   const {CreateUserEmailPassword,SigninWithGoogle} = useContext(AuthContext); 
 
   const navigate = useNavigate();
-  
+  const axiosPublic = useAxiosPublic();
 
 
   const handleGoogleSignUp= ()=>{
@@ -43,14 +42,24 @@ const onSubmit = (data) => {
     .then((result) => {
         const Loggeduser = result.user;
             console.log(Loggeduser)
-            Swal.fire({
-                position: "top-center",
-                icon: "success",
-                title: "Sign up successful.",
-                showConfirmButton: false,
-                timer: 1500
-              });
-              navigate('/',{replace: true})
+            const user = {
+                name: data.name,
+                email: data.email
+            }
+            axiosPublic.post('/users',user)
+            .then(result => {
+                if(result.data.insertedId) {
+                    Swal.fire({
+                        position: "top-center",
+                        icon: "success",
+                        title: "Sign up successful.",
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
+                      navigate('/',{replace: true})
+                }
+            })
+           
       })
       .catch((error) => {
         console.log(error.message);
