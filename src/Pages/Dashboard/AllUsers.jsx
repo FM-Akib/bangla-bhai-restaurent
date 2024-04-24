@@ -24,7 +24,7 @@ const AllUsers = () => {
           </div>
 
           <div className="w-full">
-            <div className="bg-amber-50 rounded p-7 w-4/5 mx-auto mt-10 w-full">
+            <div className="bg-amber-50 rounded p-7  mx-auto mt-10 w-full">
               
               <div className="flex justify-between items-center mb-10">
                 <h1 className="text-xl font-semibold">Total Users: {users.length}</h1>
