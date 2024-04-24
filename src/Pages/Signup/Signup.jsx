@@ -23,14 +23,26 @@ const Signup = () => {
     .then((result) => {
         const Loggeduser = result.user;
             console.log(Loggeduser)
-            Swal.fire({
-                position: "top-center",
-                icon: "success",
-                title: "Sign up successful.",
-                showConfirmButton: false,
-                timer: 1500
-              });
-              navigate('/',{replace: true})
+
+            const user ={
+                name: result.user?.name,
+                email: result.user?.email
+            }
+            axiosPublic.post('/users',user)
+            .then((result) => {
+                if(result.insertedId>0){
+                    Swal.fire({
+                        position: "top-center",
+                        icon: "success",
+                        title: "Sign up successful.",
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
+                     
+                }
+                navigate('/',{replace: true})
+            })
+            
       })
       .catch((error) => {
         console.log(error.message);
