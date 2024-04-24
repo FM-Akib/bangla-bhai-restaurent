@@ -11,6 +11,7 @@ import PrivateRoute from "./PrivateRoute";
 import Secrect from "../Pages/Shared/Secrect/Secrect";
 import Dashboard from "../Layout/Dashboard";
 import MyCart from "../Pages/Dashboard/MyCart";
+import AllUsers from "../Pages/Dashboard/AllUsers";
 
 
   export const router = createBrowserRouter([
@@ -52,6 +53,11 @@ import MyCart from "../Pages/Dashboard/MyCart";
         {
           path: 'mycart',
           element: <MyCart></MyCart>
+        },
+        //admin routes
+        {
+          path: 'allUsers',
+          element: <AllUsers></AllUsers>
         }
       ]
     }
