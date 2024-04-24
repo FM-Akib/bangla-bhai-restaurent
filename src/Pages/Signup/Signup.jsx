@@ -25,7 +25,7 @@ const Signup = () => {
             console.log(Loggeduser)
 
             const user ={
-                name: result.user?.name,
+                name: result.user?.displayName,
                 email: result.user?.email
             }
             axiosPublic.post('/users',user)
