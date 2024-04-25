@@ -2,10 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { HiTrash } from "react-icons/hi";
 import { FaUsers } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const AllUsers = () => {
     const axiosSecure =  useAxiosSecure();
-    const { isPending, error, data:users=[] } = useQuery({
+    const { isPending, error, data:users=[],refetch } = useQuery({
         queryKey: ['allUsers'],
         queryFn: async ()=>{
             const res = await axiosSecure.get('users')
@@ -16,6 +17,54 @@ const AllUsers = () => {
 
       if (isPending) return 'Loading...'
       if (error) return 'An error has occurred: ' + error.message
+
+
+      const handleMakeAdmin=(user)=>{
+        axiosSecure.patch(`users/admin/${user._id}`)
+        .then(res=>{
+          if(res.data.modifiedCount>0){
+          refetch();
+            Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: `${user.name} is admin now!`,
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+        })
+
+      }
+      
+ 
+  const handleDeleteBtn = (user) =>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/users/${user._id}`)
+        .then(result => {
+          // console.log(result);
+          if(result.data.deletedCount > 0) {
+
+          refetch();
+          Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+          }
+        })
+      }
+    });
+    
+  }
 
     return (
         <div>
@@ -54,9 +103,9 @@ const AllUsers = () => {
           <td className=" ">
             {auser.email}
           </td>
-          <td> <button  className="btn bg-amber-500 "><FaUsers className="text-2xl text-white " /></button></td>
+          <td> { auser.role==='admin' ? "Admin" :  <button  className="btn bg-amber-500 " onClick={()=>handleMakeAdmin(auser)}><FaUsers className="text-2xl text-white " /></button>}</td>
           <th>
-            <button  className="btn  bg-red-500 "><HiTrash className="text-2xl text-white " /></button>
+            <button  className="btn  bg-red-500 " onClick={()=>handleDeleteBtn(auser)}><HiTrash className="text-2xl text-white " /></button>
           </th>
         </tr>)
       }
