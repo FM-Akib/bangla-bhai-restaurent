@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWith
 import { app } from "../firebase/firebase.config";
 import { FacebookAuthProvider } from "firebase/auth";
 import {  signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({children}) => {
@@ -11,7 +12,9 @@ const AuthProvider = ({children}) => {
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
     const FacebookProvider = new FacebookAuthProvider();
-    
+    const axiosPublic = useAxiosPublic()
+
+
     const CreateUserEmailPassword = (email, password)=>{
         setLoading(true);
        return createUserWithEmailAndPassword(auth, email, password)
@@ -35,7 +38,20 @@ const AuthProvider = ({children}) => {
     useEffect(()=>{
         const unSubscribe = onAuthStateChanged(auth, (user) => {
           setUser(user);
-        setLoading(false);
+          setLoading(false);
+          if(user){
+            const userInfo = {email: user.email};
+            axiosPublic.post('/jwt',userInfo)
+            .then(res=>{
+                if(res.data.token){
+                    localStorage.setItem('access-token',res.data.token)
+                }
+            })
+          }
+          else{
+            localStorage.removeItem('access-token')
+
+          }
         });
         return ()=>{
             return unSubscribe(); 
