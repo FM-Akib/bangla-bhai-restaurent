@@ -10,11 +10,12 @@ import { NavLink } from "react-router-dom";
 import useCart from "../../Hooks/useCart";
 import { PiForkKnifeFill } from "react-icons/pi";
 import { FaBook, FaListCheck, FaUsers } from "react-icons/fa6";
+import useAdmin from "../../Hooks/useAdmin";
 
 const DashNav = () => {
 
     const [cart] = useCart();
-    const isAdmin= true;
+    const [isAdmin]= useAdmin()
 
     return (
         <div className="">
