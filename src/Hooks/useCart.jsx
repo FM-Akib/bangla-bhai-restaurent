@@ -12,7 +12,7 @@ const useCart = () => {
     const {user} = useContext(AuthContext)
 
    const { isPending, error, data:cart=[] ,refetch} = useQuery({
-    queryKey: ['cart',user?.email],
+    queryKey: ['cart',user.email],
     queryFn: async() =>{
         const res = await axioSecure.get(`/carts?email=${user.email}`)
         return res.data;

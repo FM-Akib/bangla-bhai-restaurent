@@ -16,6 +16,8 @@ const DashNav = () => {
 
     const [cart] = useCart();
     const [isAdmin]= useAdmin()
+    // const isAdmin= true;
+    // console.log(isAdmin);
 
     return (
         <div className="">
