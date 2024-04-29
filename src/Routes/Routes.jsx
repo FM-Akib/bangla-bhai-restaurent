@@ -12,6 +12,7 @@ import Secrect from "../Pages/Shared/Secrect/Secrect";
 import Dashboard from "../Layout/Dashboard";
 import MyCart from "../Pages/Dashboard/MyCart";
 import AllUsers from "../Pages/Dashboard/AllUsers";
+import AddItems from "../Pages/Dashboard/AddItems";
 
 
   export const router = createBrowserRouter([
@@ -55,6 +56,10 @@ import AllUsers from "../Pages/Dashboard/AllUsers";
           element: <MyCart></MyCart>
         },
         //admin routes
+        {
+          path: 'addItems',
+          element: <AddItems></AddItems>
+        },
         {
           path: 'allUsers',
           element: <AllUsers></AllUsers>
