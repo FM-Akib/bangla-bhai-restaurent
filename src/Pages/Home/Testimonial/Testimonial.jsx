@@ -14,6 +14,9 @@ const Testimonial = () => {
         fetch('http://localhost:5000/reviews')
         .then(response => response.json())
         .then(data => setReview(data))
+        .catch(error => {
+            console.error('Error fetching reviews:', error.message);
+          });
     },[])
 
     return (

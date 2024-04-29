@@ -20,14 +20,20 @@ const MenuSection = () => {
            subHeading='Check it out'
            ></SectionTitle>
 
-        <div className="grid md:grid-cols-2 gap-10 mb-24 px-5">
-         {
+
+            <div className="grid md:grid-cols-2 gap-10 mb-24 px-5">
+            {
+                menu?.map(amenu => <Menucard key={amenu._id} menu={amenu} />)
+            }
+            </div>
+
+        {/* <div className="grid md:grid-cols-2 gap-10 mb-24 px-5">{
             menu?.map(amenu=> <Menucard
             key={menu._id}
             menu= {amenu}
             ></Menucard>)
          }
-        </div>
+        </div> */}
             
         </>
     );

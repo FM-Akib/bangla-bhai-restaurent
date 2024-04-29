@@ -21,13 +21,19 @@ const Chef = () => {
         ></SectionTitle>
 
         <div className="grid md:grid-cols-3 gap-10 mb-24 px-8">
+            {
+                menu?.map(amenu => <ChefMenu key={amenu._id} menu={amenu}></ChefMenu>)
+            }
+        </div>
+
+        {/* <div className="grid md:grid-cols-3 gap-10 mb-24 px-8">
          {
             menu?.map(amenu=> <ChefMenu
             key={menu._id}
             menu= {amenu}
             ></ChefMenu>)
          }
-        </div>
+        </div> */}
             
         </>
     );
