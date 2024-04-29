@@ -2,10 +2,44 @@ import { TbPhotoEdit } from "react-icons/tb";
 import useMenu from "../../Hooks/useMenu";
 import SectionTitle from "../Shared/SectionTitle/SectionTitle";
 import { HiTrash } from "react-icons/hi";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ManageItems = () => {
-    const [menu] = useMenu();
+    const [menu,refetch,loading] = useMenu();
+    if (loading) return 'Loading...'
+
+    // console.log(menu);
+   const axiosSecure = useAxiosSecure();
+
     const handleDeleteBtn = (item) => {
+
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              axiosSecure.delete(`/menu/${item._id}`)
+              .then(result => {
+                // console.log(result);
+                if(result.data.deletedCount > 0) {
+      
+                refetch();
+                Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+              });
+                }
+              })
+            }
+          });
 
     }
     const updateItem = (item) => {
@@ -36,7 +70,7 @@ const ManageItems = () => {
     <tbody>
      
      
-      {menu.map((item,index)=>   <tr key={item._id}>
+      {menu?.map((item,index)=>   <tr key={item._id}>
         <th>
           {index+1}
         </th>
