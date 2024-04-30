@@ -4,13 +4,13 @@ import SectionTitle from "../Shared/SectionTitle/SectionTitle";
 import { HiTrash } from "react-icons/hi";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const ManageItems = () => {
     const [menu,refetch,loading] = useMenu();
-    if (loading) return 'Loading...'
-
     // console.log(menu);
    const axiosSecure = useAxiosSecure();
+   if (loading) return 'Loading...'
 
     const handleDeleteBtn = (item) => {
 
@@ -42,9 +42,7 @@ const ManageItems = () => {
           });
 
     }
-    const updateItem = (item) => {
-
-    }
+  
     return (
         <div>
             <SectionTitle heading="Manage all item" subHeading="Hurry Up!"></SectionTitle>
@@ -88,9 +86,10 @@ const ManageItems = () => {
         </td>
         <td>{item.price}</td>
         <td>
-        <button onClick={()=>updateItem(item)} className="btn btn-ghost "><TbPhotoEdit className="text-2xl text-amber-500"/></button>
-
-          <button className="btn btn-ghost "></button>
+          <Link to={`admin/editItems/${item._id}`}>
+        <button className="btn btn-ghost "><TbPhotoEdit className="text-2xl text-amber-500"/></button>
+        </Link>
+         
         </td>
         <td>
         <button onClick={()=>handleDeleteBtn(item)} className="btn btn-ghost "><HiTrash className="text-2xl text-red-500" /></button>

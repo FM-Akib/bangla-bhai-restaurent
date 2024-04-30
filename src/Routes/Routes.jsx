@@ -14,6 +14,7 @@ import MyCart from "../Pages/Dashboard/MyCart";
 import AllUsers from "../Pages/Dashboard/AllUsers";
 import AddItems from "../Pages/Dashboard/AddItems";
 import ManageItems from "../Pages/Dashboard/ManageItems";
+import EditItem from "../Pages/Dashboard/EditItem";
 
 
   export const router = createBrowserRouter([
@@ -60,6 +61,11 @@ import ManageItems from "../Pages/Dashboard/ManageItems";
         {
           path: 'manageItems',
           element: <ManageItems></ManageItems>
+        },
+        {
+          path: 'editItems',
+          element: <EditItem></EditItem>,
+          loader:({params})=>fetch(`http://localhost:5000/menu/${params.id}`)
         },
         {
           path: 'addItems',
