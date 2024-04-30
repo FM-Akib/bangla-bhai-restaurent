@@ -86,7 +86,7 @@ const ManageItems = () => {
         </td>
         <td>{item.price}</td>
         <td>
-          <Link to={`admin/editItems/${item._id}`}>
+          <Link to={`/dashboard/editItems/${item._id}`}>
         <button className="btn btn-ghost "><TbPhotoEdit className="text-2xl text-amber-500"/></button>
         </Link>
          

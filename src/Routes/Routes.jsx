@@ -63,7 +63,7 @@ import EditItem from "../Pages/Dashboard/EditItem";
           element: <ManageItems></ManageItems>
         },
         {
-          path: 'editItems',
+          path: 'editItems/:id',
           element: <EditItem></EditItem>,
           loader:({params})=>fetch(`http://localhost:5000/menu/${params.id}`)
         },
