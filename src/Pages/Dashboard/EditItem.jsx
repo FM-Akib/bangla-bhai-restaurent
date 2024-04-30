@@ -8,13 +8,13 @@ import { FaUtensils } from "react-icons/fa6";
 
 
 
-const image_hosting_key= import.meta.env.VITE_Image_Hosting_key;
+const image_hosting_key= import.meta.env.VITE_apiKey_Image_2;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
 const EditItem = () => {
     const updateItem = useLoaderData();
     // console.log(updateItem);
-    const {name,image,recipe,category,price} = updateItem;
+    const {name,image,recipe,category,price,_id} = updateItem;
 
 
 
@@ -29,6 +29,7 @@ const EditItem = () => {
             }
         }) 
         if(res.data.success) {
+
             const menuItem ={
                 name: data.name,
                 category:data.category,
@@ -36,12 +37,14 @@ const EditItem = () => {
                 recipe: data.recipe,
                 image: res.data.data.display_url
             }
-            const menuRes = await axiosSecure.post('/menu',menuItem)
-            if(menuRes.data.insertedId){
+        console.log(menuItem);
+
+            const menuRes = await axiosSecure.patch(`/menu/${_id}`,menuItem)
+            if(menuRes.data.modifiedCount>0){
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
-                    title: `${data.name} added!`,
+                    title: `${data.name} is updated to menu!`,
                     showConfirmButton: false,
                     timer: 1500
                   });
