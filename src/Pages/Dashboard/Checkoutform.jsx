@@ -1,5 +1,9 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useCart from "../../Hooks/useCart";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Checkoutform = () => {
 
@@ -7,48 +11,76 @@ const Checkoutform = () => {
     const elements = useElements();
   
     const [errorMessage, setErrorMessage] = useState(null);
+    const {user} = useContext(AuthContext);
   
+
+//TODO: Use Effect with intent 
+
+   const [clientSecret,setClientSecret] = useState('');
+   const [transactionId,setTransactionId] = useState(null)
+   const [cart] = useCart();
+   const axiosSecure = useAxiosSecure();
+   const totalPrice = cart?.reduce((total,item)=>total+item.price,0)
+
+
+   if(totalPrice>0){
+    useEffect(()=>{
+        axiosSecure.post('/create-payment-intent',{price:totalPrice})
+        .then(res=>{
+            setClientSecret(res.data.clientSecret)
+        })
+    },[axiosSecure,totalPrice])
+   }
+
+
+
+
     const handleSubmit = async (event) => {
       event.preventDefault();
   
-      if (elements == null) {
+      if (!stripe || !elements) {
         return;
       }
   
-      // Trigger form validation and wallet collection
-      const {error: submitError} = await elements.submit();
-      if (submitError) {
-        // Show error to your customer
-        setErrorMessage(submitError.message);
-        return;
-      }
-  
-      // Create the PaymentIntent and obtain clientSecret from your server endpoint
-      const res = await fetch('/create-intent', {
-        method: 'POST',
+      const card = elements.getElement(CardElement)
+      if(card===null) {return;}
+
+       // Use your card Element with other Stripe.js APIs
+    const {error, paymentMethod} = await stripe.createPaymentMethod({
+        type: 'card',
+        card,
       });
-  
-      const {client_secret: clientSecret} = await res.json();
-  
-      const {error} = await stripe.confirmPayment({
-        //`Elements` instance that was used to create the Payment Element
-        elements,
-        clientSecret,
-        confirmParams: {
-          return_url: 'https://example.com/order/123/complete',
-        },
-      });
-  
+
       if (error) {
-        // This point will only be reached if there is an immediate error when
-        // confirming the payment. Show error to your customer (for example, payment
-        // details incomplete)
+        console.log('[error]', error);
         setErrorMessage(error.message);
       } else {
-        // Your customer will be redirected to your `return_url`. For some payment
-        // methods like iDEAL, your customer will be redirected to an intermediate
-        // site first to authorize the payment, then redirected to the `return_url`.
+        console.log('[PaymentMethod]', paymentMethod);
+        setErrorMessage('')
       }
+      
+
+
+      const {paymentIntent, error: confirmError} = await stripe.confirmCardPayment(
+        clientSecret,
+        {
+          payment_method: {
+            card: card,
+            billing_details: {
+              email: user?.email || 'anonymus',
+              name: user?.displayName || 'anonymus',
+            },
+          },
+        },
+      );
+
+      if(confirmError)console.log(confirmError);
+      else{
+        if(paymentIntent.status==='succeeded'){
+            setTransactionId(paymentIntent.id)
+        }
+      }
+
     };
   
     return (
@@ -69,9 +101,13 @@ const Checkoutform = () => {
             },
           }}
         />
-        <button type="submit" className="btn btn-primary my-6 "disabled={!stripe}>
+        <button type="submit" className="btn btn-primary my-6 "disabled={!stripe || !clientSecret }>
           Pay
         </button>
+        <p className="text-red-600"> {errorMessage}</p>
+        {
+            transactionId && <p className="text-emerald-600">Your Transaction Id {transactionId}</p>
+        }
       </form>
     );
 };

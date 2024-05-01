@@ -5,7 +5,7 @@ import Checkoutform from "./Checkoutform";
 
 
 
-const stripePromise = loadStripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gatway_PK);
 const Payment = () => {
     return (
         <div>
