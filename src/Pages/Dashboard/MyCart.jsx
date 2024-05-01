@@ -2,6 +2,7 @@ import { HiTrash } from "react-icons/hi";
 import useCart from "../../Hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const MyCart = () => {
@@ -50,7 +51,9 @@ const MyCart = () => {
               <div className="flex justify-between items-center mb-10">
                 <h1 className="text-xl font-semibold">Total Orders: {cart.length}</h1>
                 <h1 className="text-xl font-semibold">Total Price: <span className="text-red-600">${totalPrice}</span></h1>
-                <button className="btn py-0 bg-emerald-600 text-white px-6">Pay</button>
+               {
+                cart?.length > 0 ? <Link to='/dashboard/payment'><button className="btn py-0 bg-emerald-600 text-white px-6">Pay</button></Link>  : <button disabled className="btn py-0 bg-emerald-600 text-white px-6">Pay</button>
+               }
               </div>
 
               <div className="overflow-x-auto">
