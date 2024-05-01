@@ -35,7 +35,7 @@ const DashNav = () => {
                 
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/userhome"><RiHome3Fill />User Home</NavLink> </li>
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/reservation"><BsCalendar2DateFill/>Reservation</NavLink> </li>
-                <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/payment"><GiWallet />Payment History</NavLink> </li>
+                <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/paymentHistory"><GiWallet />Payment History</NavLink> </li>
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/mycart"><BsCartDashFill />My Cart ({cart.length})</NavLink> </li>
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/review"><MdReviews />Add Review</NavLink> </li>
                 <li className="flex items-center text-lg font-semibold">  <NavLink to="/dashboard/mybooking"><IoCalendarSharp />My Booking</NavLink> </li>

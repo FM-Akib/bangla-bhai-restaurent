@@ -4,6 +4,7 @@ import useCart from "../../Hooks/useCart";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Checkoutform = () => {
 
@@ -18,7 +19,7 @@ const Checkoutform = () => {
 
    const [clientSecret,setClientSecret] = useState('');
    const [transactionId,setTransactionId] = useState(null)
-   const [cart] = useCart();
+   const [cart,refetch] = useCart();
    const axiosSecure = useAxiosSecure();
    const totalPrice = cart?.reduce((total,item)=>total+item.price,0)
 
@@ -79,6 +80,28 @@ const Checkoutform = () => {
         if(paymentIntent.status==='succeeded'){
             setTransactionId(paymentIntent.id)
         }
+      }
+
+      const payment = {
+        email: user.email,
+        price: totalPrice,
+        transactionId: transactionId,
+        date: new Date(),
+        cartIds: cart.map(item=>item._id),
+        menuItemIds: cart.map(item=>item.menuId),
+        status: 'pending'
+      }
+
+      const res = await axiosSecure.post('/payments',payment)
+    //   refetch();
+      if(res.data?.paymentResult?.insertedId){
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `Payment Successful!!`,
+            showConfirmButton: false,
+            timer: 1500
+          });
       }
 
     };
