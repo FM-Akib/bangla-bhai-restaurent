@@ -18,7 +18,7 @@ const Checkoutform = () => {
 //TODO: Use Effect with intent 
 
    const [clientSecret,setClientSecret] = useState('');
-   const [transactionId,setTransactionId] = useState(null)
+   const [transactionsId,setTransactionId] = useState('')
    const [cart,refetch] = useCart();
    const axiosSecure = useAxiosSecure();
    const totalPrice = cart?.reduce((total,item)=>total+item.price,0)
@@ -79,30 +79,32 @@ const Checkoutform = () => {
       else{
         if(paymentIntent.status==='succeeded'){
             setTransactionId(paymentIntent.id)
+            // console.log(paymentIntent.id);
+            const payment = {
+              email: user.email,
+              price: totalPrice,
+              transactionId: paymentIntent.id,
+              date: new Date(),
+              cartIds: cart.map(item=>item._id),
+              menuItemIds: cart.map(item=>item.menuId),
+              status: 'pending'
+            }
+      
+            const res = await axiosSecure.post('/payments',payment)
+          //   refetch();
+            if(res.data?.paymentResult?.insertedId){
+              Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: `Payment Successful!!`,
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+            }
         }
       }
 
-      const payment = {
-        email: user.email,
-        price: totalPrice,
-        transactionId: transactionId,
-        date: new Date(),
-        cartIds: cart.map(item=>item._id),
-        menuItemIds: cart.map(item=>item.menuId),
-        status: 'pending'
-      }
-
-      const res = await axiosSecure.post('/payments',payment)
-    //   refetch();
-      if(res.data?.paymentResult?.insertedId){
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: `Payment Successful!!`,
-            showConfirmButton: false,
-            timer: 1500
-          });
-      }
+      
 
     };
   
@@ -129,7 +131,7 @@ const Checkoutform = () => {
         </button>
         <p className="text-red-600"> {errorMessage}</p>
         {
-            transactionId && <p className="text-emerald-600">Your Transaction Id {transactionId}</p>
+            transactionsId && <p className="text-emerald-600">Your Transaction Id {transactionsId}</p>
         }
       </form>
     );
