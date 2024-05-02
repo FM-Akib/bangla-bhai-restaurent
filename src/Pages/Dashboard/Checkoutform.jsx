@@ -5,11 +5,13 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Checkoutform = () => {
 
     const stripe = useStripe();
     const elements = useElements();
+    const navigate = useNavigate();
   
     const [errorMessage, setErrorMessage] = useState(null);
     const {user} = useContext(AuthContext);
@@ -91,7 +93,7 @@ const Checkoutform = () => {
             }
       
             const res = await axiosSecure.post('/payments',payment)
-          //   refetch();
+             refetch();
             if(res.data?.paymentResult?.insertedId){
               Swal.fire({
                   position: "top-end",
@@ -100,6 +102,7 @@ const Checkoutform = () => {
                   showConfirmButton: false,
                   timer: 1500
                 });
+                navigate('/dashboard/paymentHistory')
             }
         }
       }
