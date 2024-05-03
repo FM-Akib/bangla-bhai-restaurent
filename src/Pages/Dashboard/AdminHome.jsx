@@ -18,13 +18,21 @@ const AdminHome = () => {
     return (
         <div>
             <div className="">
-                <h1 className="text-3xl text-emerald-600 font-semibold">
+                <h1 className="text-2xl text-emerald-600 font-semibold">
                 <span className="mr-2">Hi! Welcome</span>
                 {
                     user?.displayName ? user.displayName : "Back," 
                 }
                 </h1>
             </div>
+
+
+
+
+
+           <div className="">
+            
+           </div>
             
         </div>
     );
