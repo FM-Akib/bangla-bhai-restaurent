@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../../Provider/AuthProvider';
 import { MdShoppingCart } from "react-icons/md";
 import useCart from '../../../Hooks/useCart';
+import useAdmin from '../../../Hooks/useAdmin';
 
 
 
@@ -15,11 +16,15 @@ const Navbar = () => {
   // console.log(cart);
 
   const {user,logOut} = useContext(AuthContext)
+  const [isAdmin]= useAdmin()
+
   const handleLogout = () => {
     logOut()
     .then(() => {})
     .catch(err => console.log(err));
   }
+
+
 
     return (
     <div className="navbar bg-black text-white fixed z-10 px-4 bg-opacity-30 max-w-screen-xl">
@@ -38,7 +43,12 @@ const Navbar = () => {
         <div className="badge badge-secondary ml-1">{user? <>+{cart.length}</>:'+0'}</div>
         </button></Link></li>
         <li><Link to="/secrect">Secrect</Link></li>
-        
+        {
+          user&&!isAdmin && <li><Link to="/dashboard/userHome">Dashboard</Link></li>
+        }
+        {
+          user&&isAdmin && <li><Link to="/dashboard/adminHome">Dashboard</Link></li>
+        }
         
       </ul>
     </div>
@@ -60,6 +70,12 @@ const Navbar = () => {
         <div className="badge badge-secondary ml-1">{user? <>+{cart.length}</>:'+0'}</div>
         </button></Link></li>
       <li><Link to="/secrect">Secrect</Link></li>
+        {
+          user&&!isAdmin && <li><Link to="/dashboard/userHome">Dashboard</Link></li>
+        }
+        {
+          user&&isAdmin && <li><Link to="/dashboard/adminHome">Dashboard</Link></li>
+        }
       
     </ul>
   </div>
