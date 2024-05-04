@@ -5,7 +5,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { ImUsers } from "react-icons/im";
 import { RiFileList2Fill } from "react-icons/ri";
 import { BiSolidBadgeDollar } from "react-icons/bi";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid , PieChart, Pie, Sector,  ResponsiveContainer, Legend} from 'recharts';
 
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
 const getPath = (x, y, width, height) => {
@@ -21,6 +21,21 @@ const getPath = (x, y, width, height) => {
     return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
   };
 
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  
+    return (
+      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
+  
 const AdminHome = () => {
     const axiosSecure = useAxiosSecure();
     const {user}  = useContext(AuthContext);
@@ -41,7 +56,11 @@ const AdminHome = () => {
             return res.data;
         }
     })
-    console.log(chartData)
+
+    const pieChartData = chartData.map(data=>{
+        return {name:data.category,value:data.revenue}
+    })
+    // console.log(chartData)
     return (
         <div>
             <div className="">
@@ -102,9 +121,9 @@ const AdminHome = () => {
 
 
 {/* Charts Section */}
-           <div className="grid-cols-2">
+           <div className="flex">
               
-              <div className="col-span-1">
+              <div className="w-1/2">
               <BarChart
       width={500}
       height={300}
@@ -127,7 +146,28 @@ const AdminHome = () => {
     </BarChart>
               </div>
 
-              <div className="col-span-1"></div>
+
+
+
+            <div className="w-1/2">
+            <PieChart width={400} height={400}>
+          <Pie
+            data={pieChartData}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={renderCustomizedLabel}
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+          >
+            {pieChartData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Legend></Legend>
+        </PieChart>
+            </div>
            </div>
             
         </div>
