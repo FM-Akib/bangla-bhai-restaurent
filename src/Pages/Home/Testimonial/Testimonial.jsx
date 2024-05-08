@@ -11,7 +11,7 @@ import '@smastrom/react-rating/style.css'
 const Testimonial = () => {
     const [reviews, setReview] = useState();
     useEffect(() => {
-        fetch('http://localhost:5000/reviews')
+        fetch('https://bangla-bhai-restaurent-server.vercel.app/reviews')
         .then(response => response.json())
         .then(data => setReview(data))
         .catch(error => {

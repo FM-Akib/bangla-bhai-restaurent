@@ -82,7 +82,7 @@ import AdminHome from "../Pages/Dashboard/AdminHome";
         {
           path: 'editItems/:id',
           element: <EditItem></EditItem>,
-          loader:({params})=>fetch(`http://localhost:5000/menu/${params.id}`)
+          loader:({params})=>fetch(`https://bangla-bhai-restaurent-server.vercel.app/menu/${params.id}`)
         },
         {
           path: 'addItems',
