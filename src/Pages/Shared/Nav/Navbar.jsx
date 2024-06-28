@@ -53,8 +53,8 @@ const Navbar = () => {
       </ul>
     </div>
     <a className="btn btn-ghost text-xl ">
-       <div className="h-full flex items-center gap-1">
-       <img className="h-[100%]" src={logo} alt="" />
+       <div className="h-full text-sm md:text-xl flex items-center gap-2">
+       <img className="h-[70%] md:h-[100%]" src={logo} alt="" />
         Bangla Bhai<br/>Restaurent   
         </div> 
     </a>
